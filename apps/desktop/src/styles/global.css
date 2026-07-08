@@ -1,0 +1,139 @@
+@import "@starplayer/assets/fonts.css";
+
+:root {
+  /* Fallback tokens (Neon Pink, the default skin) so there's no
+     flash-of-unstyled-content before SkinProvider sets these on first render. */
+  --bg: #0c0512;
+  --surface: rgba(255, 45, 149, 0.08);
+  --border: rgba(255, 45, 149, 0.35);
+  --text-primary: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.62);
+  --accent-1: #ff2d95;
+  --accent-2: #7b2ff7;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --radius: 20px;
+  --pixel-scale: 1;
+  --glow: 0 0 24px;
+  /* How much of the decorative background shows around the app window. */
+  --window-margin: 1cm;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  /* The window itself scrolls (see WindowChrome) and is pinned via fixed
+     positioning, so the page underneath never needs to scroll or show more
+     than a thin strip of the decorative background. */
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Native <select> dropdown popups render with an OS-controlled opaque
+   background that ignores our (often transparent/dark) --surface token — so
+   a skin with light `--text-primary` (e.g. Gradient Glass) ends up with
+   white-on-white text in the open dropdown list. Force a fixed, always-legible
+   combination for the popup's options regardless of skin. */
+option {
+  color: #111111;
+  background: #ffffff;
+}
+
+/* ---------- Scrollbars — token-driven so every scroll container in the app
+   (the window itself, every list/grid, popups) automatically matches the
+   active skin's palette, with a few per-skin structural tweaks below. ---------- */
+* {
+  scrollbar-color: var(--accent-1) var(--surface);
+  scrollbar-width: thin;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--accent-1);
+  border-radius: var(--radius);
+  border: 2px solid var(--surface);
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-2);
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-corner {
+  background: var(--surface);
+}
+
+/* Vaporwave: chunky pixel thumb with a neon outline, no rounding */
+html[data-skin="vaporwave"] *::-webkit-scrollbar-thumb {
+  border: 2px solid var(--border);
+  border-radius: 0;
+  box-shadow: 0 0 6px var(--accent-2);
+}
+html[data-skin="vaporwave"] *::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+/* Neo-Brutalist Cute: thick black outline, sticker-like */
+html[data-skin="neo-brutalist-cute"] *::-webkit-scrollbar-thumb {
+  border: 2px solid var(--border);
+  border-radius: 4px;
+}
+html[data-skin="neo-brutalist-cute"] *::-webkit-scrollbar-track {
+  background: #fff5e0;
+}
+
+/* Gradient Glass / Neon Pink: barely-there glassy thumb */
+html[data-skin="gradient-glass"] *::-webkit-scrollbar-track,
+html[data-skin="neon-pink"] *::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+html[data-skin="gradient-glass"] *::-webkit-scrollbar-thumb,
+html[data-skin="neon-pink"] *::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  box-shadow: 0 0 8px var(--accent-1);
+}
+
+/* Monochrome Retro: sharp 1-bit thumb, no glow, no rounding */
+html[data-skin="monochrome-retro"] *::-webkit-scrollbar-thumb {
+  border: 1px solid var(--border);
+  border-radius: 0;
+}
+html[data-skin="monochrome-retro"] *::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+/* Soft Glass: soft frosted pill thumb */
+html[data-skin="soft-glass"] *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+html[data-skin="soft-glass"] *::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+html[data-skin="soft-glass"] *::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.15);
+}

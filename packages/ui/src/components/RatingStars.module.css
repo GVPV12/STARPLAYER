@@ -1,0 +1,80 @@
+.stars {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.star {
+  display: inline-flex;
+  padding: 1px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: transform 120ms ease, color 120ms ease;
+}
+
+.star:disabled {
+  cursor: default;
+}
+
+.star:not(:disabled):hover {
+  transform: scale(1.15);
+}
+
+.star[data-filled="true"] {
+  color: #ffd34d;
+}
+
+/* Vaporwave: neon glow on filled pixel stars, crisp edges */
+.star[data-skin="vaporwave"] {
+  image-rendering: pixelated;
+}
+.star[data-skin="vaporwave"][data-filled="true"] {
+  color: var(--accent-2);
+  filter: drop-shadow(var(--glow) var(--accent-2));
+}
+
+/* Neo-Brutalist Cute: hot pink fill, playful tilt per star position */
+.star[data-skin="neo-brutalist-cute"][data-filled="true"] {
+  color: var(--accent-1);
+}
+.star[data-skin="neo-brutalist-cute"]:nth-child(odd) {
+  transform: rotate(-3deg);
+}
+.star[data-skin="neo-brutalist-cute"]:nth-child(even) {
+  transform: rotate(3deg);
+}
+.star[data-skin="neo-brutalist-cute"]:not(:disabled):hover {
+  transform: scale(1.2) rotate(0deg);
+}
+
+/* Gradient Glass: soft violet glow, no pixelation */
+.star[data-skin="gradient-glass"][data-filled="true"] {
+  color: var(--accent-1);
+  filter: drop-shadow(0 0 6px var(--accent-1));
+}
+
+/* Monochrome Retro: pure black/white, no glow, sharp */
+.star[data-skin="monochrome-retro"] {
+  color: var(--text-primary);
+}
+.star[data-skin="monochrome-retro"][data-filled="true"] {
+  color: var(--border);
+}
+.star[data-skin="monochrome-retro"]:not(:disabled):hover {
+  transform: none;
+  opacity: 0.6;
+}
+
+/* Soft Glass: muted blue-gray fill, gentle shadow, no tilt */
+.star[data-skin="soft-glass"][data-filled="true"] {
+  color: var(--accent-1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+/* Neon Pink: hot pink glow */
+.star[data-skin="neon-pink"][data-filled="true"] {
+  color: var(--accent-1);
+  filter: drop-shadow(0 0 8px var(--accent-1));
+}

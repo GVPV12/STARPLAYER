@@ -1,0 +1,155 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.scroller {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  /* overflow-y is hidden (only the x-axis scrolls), which also clips
+     anything extending past the top/bottom edge of the padding box — so an
+     active chip's glow (drop-shadow, up to var(--glow)'s 24px blur) needs
+     matching vertical padding here or it gets visibly cut off flat instead
+     of fading out. */
+  padding: 18px 2px;
+}
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+.scroller[data-overflow="false"] {
+  justify-content: center;
+}
+
+.chip {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.emoji {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-primary);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-size: 10px;
+  padding: 3px 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+  z-index: 10;
+}
+.chip:hover .tooltip,
+.chip:focus-visible .tooltip {
+  opacity: 1;
+}
+
+.chevron {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* ---------- Vaporwave ---------- */
+.chip[data-skin="vaporwave"] {
+  border: 2px solid var(--border);
+  border-radius: 0;
+  image-rendering: pixelated;
+}
+.chip[data-skin="vaporwave"][data-active="true"] {
+  border-color: var(--accent-1);
+  filter: drop-shadow(var(--glow) var(--accent-1));
+}
+.tooltip[data-skin="vaporwave"] {
+  border: 1px solid var(--accent-2);
+  border-radius: 0;
+}
+
+/* ---------- Neo-Brutalist Cute ---------- */
+.chip[data-skin="neo-brutalist-cute"] {
+  border: 2.5px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 var(--border);
+}
+.chip[data-skin="neo-brutalist-cute"][data-active="true"] {
+  background: var(--accent-1);
+}
+.chip[data-skin="neo-brutalist-cute"]:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* ---------- Gradient Glass ---------- */
+.chip[data-skin="gradient-glass"] {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+}
+.chip[data-skin="gradient-glass"][data-active="true"] {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+}
+
+/* ---------- Monochrome Retro ---------- */
+.chip[data-skin="monochrome-retro"] {
+  border: 1px solid var(--border);
+  border-radius: 0;
+}
+.chip[data-skin="monochrome-retro"][data-active="true"] {
+  background: var(--border);
+  filter: invert(1);
+}
+
+/* ---------- Soft Glass ---------- */
+.chip[data-skin="soft-glass"] {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+}
+.chip[data-skin="soft-glass"][data-active="true"] {
+  background: var(--accent-1);
+}
+
+/* ---------- Neon Pink ---------- */
+.chip[data-skin="neon-pink"] {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+.chip[data-skin="neon-pink"][data-active="true"] {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  border-color: transparent;
+  filter: drop-shadow(0 0 8px var(--accent-1));
+}

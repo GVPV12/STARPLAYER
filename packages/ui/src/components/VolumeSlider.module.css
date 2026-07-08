@@ -1,0 +1,162 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+.speakerButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.value {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--text-muted);
+  width: 26px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.slider {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 120px;
+  height: 16px;
+  background: transparent;
+  cursor: pointer;
+}
+.slider:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
+/* ---------- Vaporwave: pixelated chunky track, magenta fill / cyan remainder ---------- */
+.slider[data-skin="vaporwave"] {
+  image-rendering: pixelated;
+}
+.slider[data-skin="vaporwave"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border: 2px solid var(--border);
+  background: linear-gradient(
+    to right,
+    var(--accent-1) 0%,
+    var(--accent-1) var(--fill-percent),
+    var(--accent-2) var(--fill-percent),
+    var(--accent-2) 100%
+  );
+}
+.slider[data-skin="vaporwave"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  background: var(--accent-1);
+  border: 2px solid var(--border);
+  border-radius: 0;
+  filter: drop-shadow(var(--glow) var(--accent-2));
+}
+.speakerButton[data-skin="vaporwave"] {
+  filter: drop-shadow(var(--glow) var(--accent-2));
+}
+
+/* ---------- Neo-Brutalist Cute: thick black border, hot pink fill, offset shadow thumb ---------- */
+.slider[data-skin="neo-brutalist-cute"]::-webkit-slider-runnable-track {
+  height: 10px;
+  border: 3px solid var(--border);
+  background: linear-gradient(
+    to right,
+    var(--accent-1) 0%,
+    var(--accent-1) var(--fill-percent),
+    #fff5e0 var(--fill-percent),
+    #fff5e0 100%
+  );
+}
+.slider[data-skin="neo-brutalist-cute"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  background: var(--accent-2);
+  border: 3px solid var(--border);
+  border-radius: 3px;
+  box-shadow: 3px 3px 0 var(--border);
+  transform: rotate(-2deg);
+}
+
+/* ---------- Gradient Glass: ultra-thin track, violet->magenta fill, glowing circular thumb ---------- */
+.slider[data-skin="gradient-glass"]::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+      to right,
+      var(--accent-1) 0%,
+      var(--accent-2) var(--fill-percent),
+      rgba(255, 255, 255, 0.2) var(--fill-percent),
+      rgba(255, 255, 255, 0.2) 100%
+    );
+}
+.slider[data-skin="gradient-glass"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px var(--accent-1);
+  border: none;
+}
+
+/* ---------- Monochrome Retro: sharp 1px track, dithered fill, tiny inset thumb ---------- */
+.slider[data-skin="monochrome-retro"]::-webkit-slider-runnable-track {
+  height: 2px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: repeating-linear-gradient(
+      to right,
+      var(--border) 0,
+      var(--border) 2px,
+      transparent 2px,
+      transparent 4px
+    )
+    left / var(--fill-percent) 100% no-repeat, transparent;
+}
+.slider[data-skin="monochrome-retro"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  margin-top: -4px;
+  background: var(--border);
+  box-shadow: inset 0 0 0 1px #ffffff;
+  border-radius: 0;
+}
+
+/* ---------- Soft Glass: barely-there translucent track, pill thumb ---------- */
+.slider[data-skin="soft-glass"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--accent-1) 0%,
+    var(--accent-1) var(--fill-percent),
+    rgba(255, 255, 255, 0.4) var(--fill-percent),
+    rgba(255, 255, 255, 0.4) 100%
+  );
+}
+.slider[data-skin="soft-glass"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(27, 43, 58, 0.3);
+  border: none;
+}

@@ -1,0 +1,105 @@
+{
+  "app": {
+    "name": "STARPLAYER"
+  },
+  "player": {
+    "noTrack": "Ninguna canción cargada",
+    "selectFolder": "Elige tu carpeta de música para empezar",
+    "chooseFolder": "Elegir carpeta",
+    "addFolder": "Agregar carpeta",
+    "scanning": "Escaneando biblioteca…",
+    "rescan": "Reescanear biblioteca",
+    "playShuffled": "Reproducir aleatorio",
+    "viewList": "Lista",
+    "viewCovers": "Carátulas",
+    "repeatOff": "No repetir",
+    "repeatAll": "Repetir indefinidamente",
+    "repeatOne": "Repetir esta canción"
+  },
+  "topbar": {
+    "back": "Atrás",
+    "playlists": "Playlists",
+    "favorites": "Modo favoritos",
+    "settings": "Ajustes"
+  },
+  "favorites": {
+    "title": "Modo favoritos",
+    "all": "Todos los favoritos (3-5★)",
+    "ultrafavorites": "Ultrafavoritas (5★)",
+    "great": "Geniales (4★)",
+    "liked": "Me gusta (3★)"
+  },
+  "playlistLibrary": {
+    "title": "Biblioteca de playlists",
+    "manage": "Crear o eliminar playlists"
+  },
+  "playlists": {
+    "title": "Playlists",
+    "newPlaylist": "Nueva playlist",
+    "name": "Nombre",
+    "emoji": "Emoji",
+    "iconsSection": "Íconos",
+    "emojisSection": "Emojis",
+    "create": "Crear",
+    "cancel": "Cancelar",
+    "empty": "Todavía no hay canciones — toca el emoji de una playlist en la pantalla principal para añadir la canción actual."
+  },
+  "settings": {
+    "title": "Ajustes",
+    "launchAtStartup": "Iniciar con el sistema",
+    "language": "Idioma",
+    "skinMode": "Modo de skin",
+    "skinModeManual": "Manual",
+    "skinModeRandom": "Aleatorio al iniciar",
+    "skinModeBeatAdaptive": "Adaptativo al ritmo",
+    "beatMapping": "Mapeo de mood → skin",
+    "customSkin": "Crear skin personalizado",
+    "visualizer": "Visualizador de beat",
+    "visualizerEnabled": "Mostrar visualizador de beat",
+    "visualizerRandomStyle": "Estilo aleatorio por canción",
+    "visualizerStyle": "Estilo del visualizador",
+    "visualizerStyleBars": "Barras",
+    "visualizerStyleDots": "Puntos",
+    "visualizerStyleWave": "Onda",
+    "visualizerStyleRing": "Anillo",
+    "visualizerStyleCircle": "Círculo",
+    "visualizerColorMode": "Modo de color",
+    "visualizerColorModeRainbow": "Arcoíris",
+    "visualizerColorModeDuo": "Dos colores",
+    "visualizerRelaxedColor": "Color relajado",
+    "visualizerEnergeticColor": "Color enérgico",
+    "libraryPath": "Carpetas de biblioteca",
+    "changeFolder": "Cambiar carpeta",
+    "rescanLibrary": "Reescanear",
+    "forgetFolder": "Olvidar",
+    "dangerZone": "Zona de peligro",
+    "deleteData": "Borrar todos los datos",
+    "deleteDataConfirmTitle": "¿Borrar todos los datos?",
+    "deleteDataConfirmMessage": "Esto elimina para siempre todas tus playlists, calificaciones, canciones escaneadas y carpetas de biblioteca, y vuelve la app al estilo Vaporwave por defecto. No se puede deshacer.",
+    "deleteDataConfirm": "Borrar todo",
+    "deletingData": "Eliminando…",
+    "about": "Acerca de",
+    "version": "Versión"
+  },
+  "customSkin": {
+    "title": "Creador de skins",
+    "startFrom": "Empezar desde",
+    "name": "Nombre del skin",
+    "mode": "Modo de renderizado",
+    "modePixel": "Pixel",
+    "modeModern": "Moderno",
+    "radius": "Radio de esquinas",
+    "save": "Guardar skin",
+    "cancel": "Cancelar"
+  },
+  "moods": {
+    "sad": "Triste",
+    "calm": "Tranquilo",
+    "ambient": "Ambiental",
+    "retro": "Retro",
+    "synthwave": "Synthwave",
+    "lofi": "Lo-fi",
+    "energetic": "Enérgico",
+    "neutral": "Neutral"
+  }
+}

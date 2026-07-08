@@ -1,0 +1,32 @@
+/**
+ * Font faces for all 5 built-in skins. The prompt's brief named
+ * "PixelOperator" for the Vaporwave/Neo-Brutalist/Monochrome skins and
+ * "Chicago"/"Geneva" for Monochrome Retro specifically — those aren't
+ * redistributable via npm (PixelOperator's license is personal-use-only,
+ * Chicago/Geneva are Apple system fonts). We substitute freely-licensed,
+ * visually-equivalent bitmap fonts below. If Grecia has a proper license for
+ * PixelOperator's TTFs, drop them into `packages/assets/fonts/` and swap the
+ * `@font-face` in here — every component reads the font via the
+ * `--font-display` / `--font-body` skin tokens, so nothing else needs to change.
+ */
+
+/* Vaporwave + Neo-Brutalist Cute: playful square pixel font (stands in for PixelOperator) */
+@import "@fontsource/silkscreen/400.css";
+@import "@fontsource/silkscreen/700.css";
+
+/* Available for custom skins (VT323 is still offered in the custom skin builder's font picker) */
+@import "@fontsource/vt323/400.css";
+
+/* Monochrome Retro: dot-matrix font evoking classic Mac System 1 chrome */
+@import "@fontsource/dotgothic16/400.css";
+
+/* Gradient Glass: modern geometric sans */
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+
+/* Soft Glass: elegant serif display + humanist sans body */
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/600.css";

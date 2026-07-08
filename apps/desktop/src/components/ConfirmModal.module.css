@@ -1,0 +1,78 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}
+
+.card {
+  width: min(320px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+.card[data-skin="gradient-glass"] {
+  background: rgba(12, 10, 20, 0.98);
+  backdrop-filter: blur(20px);
+}
+.card[data-skin="soft-glass"] {
+  background: rgba(235, 246, 252, 0.98);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.message {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.cancelButton {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.confirmButton {
+  background: var(--accent-1);
+  color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  cursor: pointer;
+}
+.confirmButton[data-danger="true"] {
+  background: #e0304f;
+  color: #ffffff;
+  border-color: #e0304f;
+}

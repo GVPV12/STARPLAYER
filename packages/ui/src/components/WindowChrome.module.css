@@ -1,0 +1,135 @@
+.window {
+  display: flex;
+  flex-direction: column;
+  /* Pinned to fill almost the whole app window, with a thin strip of the
+     decorative background left on all four sides. */
+  position: fixed;
+  top: var(--window-margin);
+  left: var(--window-margin);
+  right: var(--window-margin);
+  bottom: var(--window-margin);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  /* The window itself never scrolls — each screen owns exactly one scrollable
+     region internally (its list/grid), so there's never a nested double
+     scrollbar and the titlebar/toolbar/footer chrome always stays visible. */
+  overflow: hidden;
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.dots {
+  display: flex;
+  gap: 5px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
+
+/* ---------- Vaporwave ---------- */
+.window[data-skin="vaporwave"] {
+  background: linear-gradient(165deg, #241454 0%, #170b38 55%, #0f0726 100%);
+  border: 2px solid var(--accent-2);
+  border-radius: 2px;
+  box-shadow:
+    0 0 30px rgba(255, 43, 214, 0.25),
+    0 0 55px rgba(0, 229, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.titlebar[data-skin="vaporwave"] {
+  background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+  box-shadow: 0 1px 16px rgba(255, 43, 214, 0.45);
+  color: #0a0420;
+}
+.title[data-skin="vaporwave"] {
+  color: #0a0420;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- Neo-Brutalist Cute ---------- */
+.window[data-skin="neo-brutalist-cute"] {
+  border: 4px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 6px 6px 0 var(--border);
+}
+.titlebar[data-skin="neo-brutalist-cute"] {
+  background: var(--accent-2);
+  border-bottom: 4px solid var(--border);
+}
+.dot[data-skin="neo-brutalist-cute"] {
+  border: 2px solid var(--border);
+  background: #ffffff;
+}
+
+/* ---------- Gradient Glass ---------- */
+.window[data-skin="gradient-glass"] {
+  border: 1px solid var(--border);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Monochrome Retro ---------- */
+.window[data-skin="monochrome-retro"] {
+  border: 2px solid var(--border);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--border);
+}
+.titlebar[data-skin="monochrome-retro"] {
+  border-bottom: 2px solid var(--border);
+  background: repeating-linear-gradient(to right, var(--border) 0, var(--border) 1px, transparent 1px, transparent 3px);
+}
+.title[data-skin="monochrome-retro"] {
+  background: #ffffff;
+  padding: 0 6px;
+}
+.dot[data-skin="monochrome-retro"] {
+  border-radius: 0;
+  border: 1px solid var(--border);
+  background: #ffffff;
+}
+
+/* ---------- Soft Glass ---------- */
+.window[data-skin="soft-glass"] {
+  border: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 12px 40px rgba(27, 43, 58, 0.2);
+}
+
+/* ---------- Neon Pink ---------- */
+.window[data-skin="neon-pink"] {
+  border: 1px solid var(--border);
+  backdrop-filter: blur(28px);
+  box-shadow:
+    0 0 40px rgba(255, 45, 149, 0.35),
+    0 0 70px rgba(123, 47, 247, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}

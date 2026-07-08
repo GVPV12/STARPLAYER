@@ -1,0 +1,105 @@
+{
+  "app": {
+    "name": "STARPLAYER"
+  },
+  "player": {
+    "noTrack": "No track loaded",
+    "selectFolder": "Choose your music folder to get started",
+    "chooseFolder": "Choose folder",
+    "addFolder": "Add folder",
+    "scanning": "Scanning library…",
+    "rescan": "Re-scan library",
+    "playShuffled": "Play shuffled",
+    "viewList": "List",
+    "viewCovers": "Covers",
+    "repeatOff": "Don't repeat",
+    "repeatAll": "Repeat indefinitely",
+    "repeatOne": "Repeat this song"
+  },
+  "topbar": {
+    "back": "Back",
+    "playlists": "Playlists",
+    "favorites": "Favorites mode",
+    "settings": "Settings"
+  },
+  "favorites": {
+    "title": "Favorites mode",
+    "all": "All favorites (3-5★)",
+    "ultrafavorites": "Ultrafavorites (5★)",
+    "great": "Great (4★)",
+    "liked": "Liked (3★)"
+  },
+  "playlistLibrary": {
+    "title": "Playlist library",
+    "manage": "Create or delete playlists"
+  },
+  "playlists": {
+    "title": "Playlists",
+    "newPlaylist": "New playlist",
+    "name": "Name",
+    "emoji": "Emoji",
+    "iconsSection": "Icons",
+    "emojisSection": "Emojis",
+    "create": "Create",
+    "cancel": "Cancel",
+    "empty": "No tracks yet — click a playlist emoji on the player screen to add the current track."
+  },
+  "settings": {
+    "title": "Settings",
+    "launchAtStartup": "Launch at system startup",
+    "language": "Language",
+    "skinMode": "Skin mode",
+    "skinModeManual": "Manual",
+    "skinModeRandom": "Random on launch",
+    "skinModeBeatAdaptive": "Beat-adaptive",
+    "beatMapping": "Mood → skin mapping",
+    "customSkin": "Custom skin builder",
+    "visualizer": "Beat visualizer",
+    "visualizerEnabled": "Show beat visualizer",
+    "visualizerRandomStyle": "Random style per song",
+    "visualizerStyle": "Visualizer style",
+    "visualizerStyleBars": "Bars",
+    "visualizerStyleDots": "Dots",
+    "visualizerStyleWave": "Wave",
+    "visualizerStyleRing": "Ring",
+    "visualizerStyleCircle": "Circle",
+    "visualizerColorMode": "Color mode",
+    "visualizerColorModeRainbow": "Rainbow",
+    "visualizerColorModeDuo": "Two colors",
+    "visualizerRelaxedColor": "Relaxed color",
+    "visualizerEnergeticColor": "Energetic color",
+    "libraryPath": "Library folders",
+    "changeFolder": "Change folder",
+    "rescanLibrary": "Re-scan",
+    "forgetFolder": "Forget",
+    "dangerZone": "Danger zone",
+    "deleteData": "Delete all data",
+    "deleteDataConfirmTitle": "Delete all data?",
+    "deleteDataConfirmMessage": "This permanently deletes every playlist, rating, scanned song, and library folder, and resets the app back to the default Vaporwave look. This can't be undone.",
+    "deleteDataConfirm": "Delete everything",
+    "deletingData": "Deleting…",
+    "about": "About",
+    "version": "Version"
+  },
+  "customSkin": {
+    "title": "Custom skin builder",
+    "startFrom": "Start from",
+    "name": "Skin name",
+    "mode": "Rendering mode",
+    "modePixel": "Pixel",
+    "modeModern": "Modern",
+    "radius": "Corner radius",
+    "save": "Save skin",
+    "cancel": "Cancel"
+  },
+  "moods": {
+    "sad": "Sad",
+    "calm": "Calm",
+    "ambient": "Ambient",
+    "retro": "Retro",
+    "synthwave": "Synthwave",
+    "lofi": "Lo-fi",
+    "energetic": "Energetic",
+    "neutral": "Neutral"
+  }
+}

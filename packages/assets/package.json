@@ -1,0 +1,18 @@
+{
+  "name": "@starplayer/assets",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./fonts.css": "./src/fonts.css",
+    "./images/*": "./images/*"
+  },
+  "dependencies": {
+    "@fontsource/vt323": "^5.1.0",
+    "@fontsource/silkscreen": "^5.1.0",
+    "@fontsource/dotgothic16": "^5.1.0",
+    "@fontsource/space-grotesk": "^5.1.0",
+    "@fontsource/inter": "^5.1.0",
+    "@fontsource/fraunces": "^5.1.0"
+  }
+}

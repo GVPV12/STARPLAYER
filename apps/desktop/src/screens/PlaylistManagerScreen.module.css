@@ -1,0 +1,205 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+}
+
+.heading {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  margin: 0;
+}
+
+.emptyText {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-content: start;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 2px 14px 2px 2px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.tileSquare {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.tileCover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Never inherit a skin's pixelated image-rendering — that's meant for
+     chunky UI chrome, not real embedded cover art, which looks blocky when
+     upscaled from a small thumbnail with nearest-neighbor sampling. */
+  image-rendering: auto;
+}
+
+.tileEmoji {
+  font-size: 28px;
+}
+
+.tileDelete {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  cursor: pointer;
+}
+.tile:hover .tileDelete,
+.tile:focus-within .tileDelete {
+  opacity: 1;
+}
+
+.tileName {
+  font-size: 10px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Vaporwave ---------- */
+.tileSquare[data-skin="vaporwave"] {
+  border: 2px solid var(--accent-2);
+  border-radius: 0;
+}
+
+/* ---------- Neo-Brutalist Cute ---------- */
+.tileSquare[data-skin="neo-brutalist-cute"] {
+  border: 2.5px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 2px 2px 0 var(--border);
+}
+
+/* ---------- Gradient Glass ---------- */
+.tileSquare[data-skin="gradient-glass"] {
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+/* ---------- Monochrome Retro ---------- */
+.tileSquare[data-skin="monochrome-retro"] {
+  border-radius: 0;
+}
+
+/* ---------- Soft Glass ---------- */
+.tileSquare[data-skin="soft-glass"] {
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.newButton {
+  flex-shrink: 0;
+  align-self: flex-start;
+  background: transparent;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.form {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.formTitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.formRow {
+  display: flex;
+  gap: 8px;
+}
+
+.nameInput {
+  flex: 1;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.cancelButton {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.createButton {
+  background: var(--accent-1);
+  color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  cursor: pointer;
+}

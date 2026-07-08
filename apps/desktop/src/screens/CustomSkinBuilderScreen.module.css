@@ -1,0 +1,71 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 14px;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: 20px;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.row select,
+.row input:not([type="color"]):not([type="range"]) {
+  font-family: var(--font-body);
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px 6px;
+}
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.colorRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.preview {
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.saveButton {
+  align-self: flex-end;
+  background: var(--accent-1);
+  color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 16px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  cursor: pointer;
+}

@@ -1,0 +1,19 @@
+{
+  "name": "starplayer",
+  "private": true,
+  "version": "0.1.0",
+  "description": "STARPLAYER — cross-platform music player with vaporwave OS-simulator skin engine",
+  "scripts": {
+    "dev:desktop": "pnpm --filter @starplayer/desktop tauri dev",
+    "build:desktop": "pnpm --filter @starplayer/desktop tauri build",
+    "test": "pnpm --filter @starplayer/core test",
+    "typecheck": "pnpm -r --if-present typecheck"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "packageManager": "pnpm@11.4.0",
+  "engines": {
+    "node": ">=20"
+  }
+}

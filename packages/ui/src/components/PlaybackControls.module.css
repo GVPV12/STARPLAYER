@@ -1,0 +1,192 @@
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.button[data-active="true"] {
+  color: var(--accent-1);
+}
+
+.playButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  background: var(--accent-1);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+}
+
+.repeatWrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.menuBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+}
+
+.repeatMenu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  z-index: 21;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 160px;
+  padding: 4px;
+  /* Opaque by default — several skins' --surface is a translucent tint meant
+     to sit over a background layer, which reads as illegible in a floating
+     menu with nothing but page content behind it. */
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.repeatMenu[data-skin="gradient-glass"],
+.repeatMenu[data-skin="neon-pink"] {
+  background: rgba(12, 10, 20, 0.98);
+  backdrop-filter: blur(20px);
+}
+.repeatMenu[data-skin="soft-glass"] {
+  background: rgba(235, 246, 252, 0.98);
+}
+
+.repeatOption {
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: calc(var(--radius) - 2px);
+}
+.repeatOption:hover {
+  background: rgba(127, 127, 127, 0.15);
+}
+.repeatOption[data-active="true"] {
+  color: var(--accent-1);
+  font-weight: 600;
+}
+
+/* ---------- Vaporwave ---------- */
+.button[data-skin="vaporwave"] {
+  border: 2px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--accent-2);
+  border-radius: 2px;
+}
+.button[data-skin="vaporwave"][data-active="true"] {
+  color: var(--accent-1);
+  filter: drop-shadow(var(--glow) var(--accent-1));
+}
+.playButton[data-skin="vaporwave"] {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  color: #0a0420;
+  filter: drop-shadow(0 0 18px rgba(255, 43, 214, 0.5)) drop-shadow(0 0 18px rgba(0, 229, 255, 0.4));
+}
+
+/* ---------- Neo-Brutalist Cute ---------- */
+.button[data-skin="neo-brutalist-cute"] {
+  border: 2.5px solid var(--border);
+  background: #fff5e0;
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 var(--border);
+}
+.button[data-skin="neo-brutalist-cute"]:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+.playButton[data-skin="neo-brutalist-cute"] {
+  border: 3px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--border);
+  color: var(--border);
+}
+.playButton[data-skin="neo-brutalist-cute"]:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+/* ---------- Gradient Glass ---------- */
+.button[data-skin="gradient-glass"] {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+}
+.playButton[data-skin="gradient-glass"] {
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #ffffff;
+  box-shadow: 0 0 20px var(--accent-1);
+}
+
+/* ---------- Monochrome Retro ---------- */
+.button[data-skin="monochrome-retro"] {
+  border: 1px solid var(--border);
+  background: #ffffff;
+  border-radius: 0;
+  color: var(--border);
+}
+.playButton[data-skin="monochrome-retro"] {
+  border: 1px solid var(--border);
+  border-radius: 0;
+  color: #ffffff;
+}
+
+/* ---------- Soft Glass ---------- */
+.button[data-skin="soft-glass"] {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  color: var(--text-primary);
+}
+.playButton[data-skin="soft-glass"] {
+  border-radius: 999px;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(27, 43, 58, 0.25);
+}
+
+/* ---------- Neon Pink ---------- */
+.button[data-skin="neon-pink"] {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+}
+.button[data-skin="neon-pink"][data-active="true"] {
+  color: var(--accent-1);
+  filter: drop-shadow(0 0 10px var(--accent-1));
+}
+.playButton[data-skin="neon-pink"] {
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #ffffff;
+  box-shadow: 0 0 22px rgba(255, 45, 149, 0.55), 0 0 40px rgba(123, 47, 247, 0.35);
+}
