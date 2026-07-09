@@ -16,7 +16,12 @@ export default defineConfig({
   },
   envPrefix: ["VITE_", "TAURI_"],
   build: {
-    target: process.env.TAURI_ENV_PLATFORM === "windows" ? "chrome105" : "safari13",
+    // safari13 (the old Tauri-template default for non-Windows) predates
+    // BigInt literals, which music-metadata's MP4 parser uses — that broke
+    // the macOS/Linux build (never caught locally since local builds always
+    // forced TAURI_ENV_PLATFORM=windows). safari14 still targets Tauri's
+    // real minimum macOS/webkit2gtk baseline, just without that gap.
+    target: process.env.TAURI_ENV_PLATFORM === "windows" ? "chrome105" : "safari14",
     minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
     sourcemap: Boolean(process.env.TAURI_ENV_DEBUG),
   },
