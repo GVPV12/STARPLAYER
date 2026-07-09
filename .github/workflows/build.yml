@@ -63,4 +63,7 @@ jobs:
           releaseBody: 'Build automático de STARPLAYER. Descarga el instalador para tu sistema operativo. No está firmado digitalmente, así que Windows/macOS pueden mostrar una advertencia la primera vez que lo abras — es normal, solo confirma que quieres ejecutarlo.'
           releaseDraft: true
           prerelease: false
+          # Also attach the raw, un-installed binary for each OS (e.g. the
+          # portable starplayer.exe on Windows) alongside the installers.
+          uploadPlainBinary: true
           args: ${{ matrix.args }}
