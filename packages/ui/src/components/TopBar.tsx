@@ -24,16 +24,17 @@ export function TopBar({
   return (
     <div className={styles.bar} data-skin={skin.id}>
       <div className={styles.group}>
-        <button
-          type="button"
-          className={styles.iconButton}
-          data-skin={skin.id}
-          onClick={onBack}
-          disabled={!onBack}
-          aria-label="Back"
-        >
-          <BackArrowIcon size={18} />
-        </button>
+        {onBack ? (
+          <button
+            type="button"
+            className={styles.iconButton}
+            data-skin={skin.id}
+            onClick={onBack}
+            aria-label="Back"
+          >
+            <BackArrowIcon size={18} shapeRendering="geometricPrecision" />
+          </button>
+        ) : null}
         <button
           type="button"
           className={styles.iconButton}
@@ -41,7 +42,7 @@ export function TopBar({
           onClick={onOpenSearch}
           aria-label="Search"
         >
-          <SearchIcon size={18} />
+          <SearchIcon size={18} shapeRendering="geometricPrecision" />
         </button>
       </div>
       <div className={styles.group}>
@@ -52,7 +53,7 @@ export function TopBar({
           onClick={onOpenPlaylists}
           aria-label="Playlists"
         >
-          <PlaylistIcon size={18} />
+          <PlaylistIcon size={18} shapeRendering="geometricPrecision" />
         </button>
         <button
           type="button"
@@ -63,7 +64,7 @@ export function TopBar({
           aria-label="Favorites mode"
           aria-pressed={favoritesActive}
         >
-          <FavoritesIcon size={18} />
+          <FavoritesIcon size={18} shapeRendering="geometricPrecision" />
         </button>
         <button
           type="button"
@@ -72,7 +73,7 @@ export function TopBar({
           onClick={onOpenSettings}
           aria-label="Settings"
         >
-          <SettingsGearIcon size={18} />
+          <SettingsGearIcon size={18} shapeRendering="geometricPrecision" />
         </button>
       </div>
     </div>

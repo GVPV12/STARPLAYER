@@ -23,11 +23,6 @@
   color: var(--text-primary);
   cursor: pointer;
 }
-.iconButton:disabled {
-  opacity: 0;
-  cursor: default;
-}
-
 .iconButton[data-active="true"] {
   color: var(--accent-1);
 }
