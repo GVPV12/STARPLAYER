@@ -129,6 +129,15 @@ export function SettingsGearIcon(props: IconProps) {
   );
 }
 
+export function SearchIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="6.5" cy="6.5" r="4.2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M9.5 9.5 L14 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="square" />
+    </Svg>
+  );
+}
+
 export function PlaylistIcon(props: IconProps) {
   return (
     <Svg {...props}>

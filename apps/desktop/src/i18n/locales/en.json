@@ -18,9 +18,15 @@
   },
   "topbar": {
     "back": "Back",
+    "search": "Search",
     "playlists": "Playlists",
     "favorites": "Favorites mode",
     "settings": "Settings"
+  },
+  "search": {
+    "placeholder": "Search songs, artists, albums…",
+    "hint": "Type to search your library",
+    "noResults": "No results found"
   },
   "favorites": {
     "title": "Favorites mode",

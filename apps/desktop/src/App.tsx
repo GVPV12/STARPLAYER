@@ -21,6 +21,7 @@ import { PlaylistManagerScreen } from "./screens/PlaylistManagerScreen.js";
 import { PlaylistLibraryScreen } from "./screens/PlaylistLibraryScreen.js";
 import { FavoritesScreen } from "./screens/FavoritesScreen.js";
 import { CustomSkinBuilderScreen } from "./screens/CustomSkinBuilderScreen.js";
+import { SearchScreen } from "./screens/SearchScreen.js";
 import { ScanningBanner } from "./components/ScanningBanner.js";
 
 type ScreenId =
@@ -30,7 +31,8 @@ type ScreenId =
   | "playlistLibrary"
   | "playlistManager"
   | "favorites"
-  | "customSkin";
+  | "customSkin"
+  | "search";
 
 const KEY_IGNORE_TAGS = new Set(["INPUT", "TEXTAREA", "SELECT"]);
 
@@ -134,6 +136,7 @@ export function App() {
       <WindowChrome title={t("app.name")}>
         <TopBar
           onBack={screenStack.length > 1 ? goBack : undefined}
+          onOpenSearch={() => navigateTo("search")}
           onOpenPlaylists={() => navigateTo("playlistLibrary")}
           onOpenFavorites={() => navigateTo("favorites")}
           onOpenSettings={() => navigateTo("settings")}
@@ -157,6 +160,7 @@ export function App() {
         {screen === "playlistManager" ? <PlaylistManagerScreen onPlayPlaylist={() => navigateTo("player")} /> : null}
         {screen === "favorites" ? <FavoritesScreen onSelected={() => navigateTo("player")} /> : null}
         {screen === "customSkin" ? <CustomSkinBuilderScreen onSaved={goBack} /> : null}
+        {screen === "search" ? <SearchScreen onOpenTrack={openTrack} /> : null}
       </WindowChrome>
     </SkinProvider>
   );

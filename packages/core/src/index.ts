@@ -3,6 +3,7 @@ export * from "./rating.js";
 export * from "./playlist.js";
 export * from "./volume.js";
 export * from "./mood.js";
+export * from "./search.js";
 export * from "./settings.js";
 export * from "./player.js";
 export * from "./skin/index.js";
