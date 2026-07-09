@@ -260,38 +260,45 @@ export function BeatVisualizer({
 
     const glow = DARK_GLOW_SKIN_IDS.has(skin.id) ? 1 : 0.25;
     let rotation = 0;
-    let frameId: number;
+    let frameId: number | undefined;
     function draw() {
+      const data = dataRef.current;
+      // Nothing to draw — stop looping instead of burning a CPU core on an
+      // empty clearRect forever. The effect restarts this once data flows
+      // again (see the `Boolean(frequencyData)` dependency below).
+      if (!data) return;
       const w = canvas!.width;
       const h = canvas!.height;
       ctx!.clearRect(0, 0, w, h);
-      const data = dataRef.current;
-      if (data) {
-        rotation += 0.012;
-        const color = mixColor(relaxedColor, energeticColor, energyRef.current);
-        DRAWERS[style]({
-          ctx: ctx!,
-          data,
-          w,
-          h,
-          color,
-          colorMode,
-          relaxedColor,
-          energeticColor,
-          glow,
-          rotation,
-          beatPulse: beatPulseRef.current,
-        });
-      }
+      rotation += 0.012;
+      const color = mixColor(relaxedColor, energeticColor, energyRef.current);
+      DRAWERS[style]({
+        ctx: ctx!,
+        data,
+        w,
+        h,
+        color,
+        colorMode,
+        relaxedColor,
+        energeticColor,
+        glow,
+        rotation,
+        beatPulse: beatPulseRef.current,
+      });
       frameId = requestAnimationFrame(draw);
     }
-    frameId = requestAnimationFrame(draw);
+    if (dataRef.current) frameId = requestAnimationFrame(draw);
 
     return () => {
       observer.disconnect();
-      cancelAnimationFrame(frameId);
+      if (frameId !== undefined) cancelAnimationFrame(frameId);
     };
-  }, [style, colorMode, relaxedColor, energeticColor, skin.id]);
+    // Boolean(frequencyData), not frequencyData itself — the loop reads fresh
+    // data every frame via dataRef without needing to re-run this effect for
+    // every ~60fps update; it only needs to restart when playback actually
+    // starts or stops (frequencyData flips between null and non-null).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [style, colorMode, relaxedColor, energeticColor, skin.id, Boolean(frequencyData)]);
 
   return <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />;
 }
