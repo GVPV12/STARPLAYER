@@ -8,18 +8,29 @@ export function ratingLabel(rating: Rating): string {
   return rating === 0 ? "unrated" : RATING_LABELS[rating];
 }
 
-/** Whether a track is eligible for shuffle / random playback (3–5 stars only). */
-export function isShuffleable(rating: Rating): boolean {
-  return rating >= SHUFFLEABLE_MIN_RATING;
+/** Whether a track is eligible for shuffle / random playback (3–5 stars by default). */
+export function isShuffleable(rating: Rating, minRating: Rating = SHUFFLEABLE_MIN_RATING): boolean {
+  return rating >= minRating;
 }
 
-export function filterShuffleable(tracks: readonly Track[]): Track[] {
-  return tracks.filter((track) => isShuffleable(track.rating));
+export function filterShuffleable(tracks: readonly Track[], minRating: Rating = SHUFFLEABLE_MIN_RATING): Track[] {
+  return tracks.filter((track) => isShuffleable(track.rating, minRating));
 }
 
-/** Fisher–Yates shuffle restricted to 3–5★ tracks, per the "shuffle skips 1★/2★" rule. */
-export function shuffleTracks(tracks: readonly Track[], rng: () => number = Math.random): Track[] {
-  const pool = filterShuffleable(tracks);
+/**
+ * Fisher–Yates shuffle restricted to tracks at or above `minRating` (3★ by
+ * default, per the "shuffle skips 1★/2★" rule — lower via Settings' "include
+ * 1-2 star tracks"). Falls back to shuffling the full list when nothing meets
+ * that bar, so a queue of only low-rated/unrated tracks still plays instead
+ * of silently producing an empty queue.
+ */
+export function shuffleTracks(
+  tracks: readonly Track[],
+  minRating: Rating = SHUFFLEABLE_MIN_RATING,
+  rng: () => number = Math.random,
+): Track[] {
+  const eligible = filterShuffleable(tracks, minRating);
+  const pool = eligible.length > 0 ? eligible : [...tracks];
   for (let i = pool.length - 1; i > 0; i -= 1) {
     const j = Math.floor(rng() * (i + 1));
     const tmp = pool[i]!;

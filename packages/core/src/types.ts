@@ -12,6 +12,9 @@ export const RATING_LABELS: Record<Exclude<Rating, 0>, string> = {
 /** Lowest rating that is allowed to play during shuffle / favorites mode. */
 export const SHUFFLEABLE_MIN_RATING: Rating = 3;
 
+/** Shuffle threshold when Settings' "include 1-2 star tracks" is turned on — everything except unrated. */
+export const SHUFFLEABLE_MIN_RATING_LOW: Rating = 1;
+
 export type MoodTag =
   | "sad"
   | "calm"
@@ -67,6 +70,11 @@ export interface AutoPlaylist {
   maxRating: Rating;
 }
 
+/**
+ * Both non-"off" modes repeat the single currently-playing track, not the
+ * whole queue — they only differ in how many times: "all" loops it forever,
+ * "one" replays it exactly once and then turns itself back off.
+ */
 export type RepeatMode = "off" | "all" | "one";
 
 export type SkinMode = "manual" | "random-on-startup" | "beat-adaptive";
@@ -141,4 +149,6 @@ export interface Settings {
   volume: number;
   muted: boolean;
   volumeBeforeMute: number;
+  /** When true, shuffle/"play shuffled" also includes 1-2 star tracks (normally only 3-5 star). */
+  shuffleIncludeLowRated: boolean;
 }

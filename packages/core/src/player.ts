@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { RepeatMode, Track } from "./types.js";
+import { SHUFFLEABLE_MIN_RATING, type Rating, type RepeatMode, type Track } from "./types.js";
 import { shuffleTracks } from "./rating.js";
 import {
   createVolumeState,
@@ -40,10 +40,13 @@ export interface PlayerState {
   duration: number;
   shuffle: boolean;
   repeat: RepeatMode;
+  /** Internal: whether the current track's one-shot "repeat once" replay has already happened. */
+  repeatOneConsumed: boolean;
   volume: VolumeState;
 
   setBackend: (backend: PlayerBackend) => void;
-  playQueue: (tracks: Track[], startIndex?: number) => Promise<void>;
+  /** `shuffle` defaults to off — pass `{ shuffle: true }` for an explicit "play shuffled" action. */
+  playQueue: (tracks: Track[], startIndex?: number, options?: { shuffle?: boolean }) => Promise<void>;
   togglePlay: () => void;
   next: () => Promise<void>;
   prev: () => Promise<void>;
@@ -78,7 +81,15 @@ async function safePlay(backend: PlayerBackend): Promise<void> {
   }
 }
 
-export function createPlayerStore(initialVolume = 80) {
+/**
+ * @param getShuffleMinRating Read fresh on every shuffle so a live Settings
+ * change (e.g. "include 1-2 star tracks") takes effect immediately, without
+ * threading the value through every `playQueue`/`toggleShuffle` call site.
+ */
+export function createPlayerStore(
+  initialVolume = 80,
+  getShuffleMinRating: () => Rating = () => SHUFFLEABLE_MIN_RATING,
+) {
   return create<PlayerState>((set, get) => ({
     backend: null,
     queue: [],
@@ -91,6 +102,7 @@ export function createPlayerStore(initialVolume = 80) {
     duration: 0,
     shuffle: false,
     repeat: "off",
+    repeatOneConsumed: false,
     volume: createVolumeState(initialVolume),
 
     setBackend: (backend) => {
@@ -98,14 +110,25 @@ export function createPlayerStore(initialVolume = 80) {
       set({ backend });
     },
 
-    playQueue: async (tracks, startIndex = 0) => {
+    playQueue: async (tracks, startIndex = 0, options) => {
+      const shuffle = options?.shuffle ?? false;
       const unshuffledQueue = [...tracks];
-      const queue = get().shuffle ? shuffleTracks(tracks) : unshuffledQueue;
+      const queue = shuffle ? shuffleTracks(tracks, getShuffleMinRating()) : unshuffledQueue;
       const currentIndex = Math.min(Math.max(startIndex, 0), Math.max(queue.length - 1, 0));
       const currentTrack = queue[currentIndex] ?? null;
-      // Loop back to the start once the queue ends by default (favorites, a
-      // library folder, a playlist) — the repeat menu can still override this.
-      set({ queue, unshuffledQueue, currentIndex, currentTrack, repeat: "all", isPlaying: Boolean(currentTrack) });
+      // Starting a new queue always begins with shuffle/repeat off unless the
+      // caller explicitly asked for shuffle — neither should silently carry
+      // over from a previous queue and surprise the next thing you play.
+      set({
+        queue,
+        unshuffledQueue,
+        currentIndex,
+        currentTrack,
+        shuffle,
+        repeat: "off",
+        repeatOneConsumed: false,
+        isPlaying: Boolean(currentTrack),
+      });
       await loadAndPlay(get().backend, currentTrack ?? undefined);
     },
 
@@ -122,21 +145,36 @@ export function createPlayerStore(initialVolume = 80) {
     },
 
     next: async () => {
-      const { queue, currentIndex, repeat, backend, currentTrack } = get();
+      const { queue, currentIndex, backend, currentTrack, repeatOneConsumed, repeat: initialRepeat } = get();
+      let repeat = initialRepeat;
       if (queue.length === 0) return;
-      if (repeat === "one" && currentTrack) {
+
+      // "all" loops the current (marked) track forever — only changing
+      // `repeat` away from it moves playback on to a different track.
+      if (repeat === "all" && currentTrack) {
         await loadAndPlay(backend, currentTrack);
         set({ isPlaying: true });
         return;
       }
+
+      // "one" is a one-shot: the current track replays exactly once, then
+      // the mode turns itself back off and playback advances normally.
+      if (repeat === "one" && currentTrack && !repeatOneConsumed) {
+        set({ repeatOneConsumed: true });
+        await loadAndPlay(backend, currentTrack);
+        set({ isPlaying: true });
+        return;
+      }
+      if (repeat === "one") {
+        repeat = "off";
+        set({ repeat, repeatOneConsumed: false });
+      }
+
       const history = currentTrack ? [...get().history, currentTrack] : get().history;
-      let nextIndex = currentIndex + 1;
+      const nextIndex = currentIndex + 1;
       if (nextIndex >= queue.length) {
-        if (repeat !== "all") {
-          set({ isPlaying: false });
-          return;
-        }
-        nextIndex = 0;
+        set({ isPlaying: false });
+        return;
       }
       const nextTrack = queue[nextIndex] ?? null;
       set({ currentIndex: nextIndex, currentTrack: nextTrack, history, isPlaying: Boolean(nextTrack) });
@@ -168,12 +206,12 @@ export function createPlayerStore(initialVolume = 80) {
         if (state.queue.length === 0) return { shuffle };
         const current = state.currentTrack;
         const remaining = state.unshuffledQueue.filter((track) => track.id !== current?.id);
-        const reordered = shuffle ? shuffleTracks(remaining) : remaining;
+        const reordered = shuffle ? shuffleTracks(remaining, getShuffleMinRating()) : remaining;
         const queue = current ? [current, ...reordered] : reordered;
         return { shuffle, queue, currentIndex: 0 };
       }),
 
-    setRepeat: (mode) => set({ repeat: mode }),
+    setRepeat: (mode) => set({ repeat: mode, repeatOneConsumed: false }),
 
     setVolume: (value) =>
       set((state) => {

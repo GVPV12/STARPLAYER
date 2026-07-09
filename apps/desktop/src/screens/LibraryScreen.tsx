@@ -42,9 +42,7 @@ export function LibraryScreen({ onOpenTrack }: LibraryScreenProps) {
 
   function handlePlayShuffled() {
     if (tracks.length === 0) return;
-    const player = usePlayerStore.getState();
-    if (!player.shuffle) player.toggleShuffle();
-    void usePlayerStore.getState().playQueue(tracks, 0);
+    void usePlayerStore.getState().playQueue(tracks, 0, { shuffle: true });
     useFavoritesModeStore.getState().setActive(false);
     onOpenTrack(tracks, 0);
   }

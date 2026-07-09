@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ALL_VISUALIZER_STYLES,
-  buildPlaylistCarousel,
-  getAutoPlaylistTracks,
-  type AutoPlaylistId,
+  type PlaylistCarouselItem,
   type Rating,
   type VisualizerStyle,
 } from "@starplayer/core";
@@ -13,21 +11,8 @@ import { usePlayerStore } from "../store/playerStore.js";
 import { useSettingsStore } from "../store/settingsStore.js";
 import { useAudioVisualizerData } from "../lib/useAudioVisualizerData.js";
 import { ConnectedProgressBar } from "../components/ConnectedProgressBar.js";
-import {
-  useLinksQuery,
-  usePlaylistsQuery,
-  useRateTrackMutation,
-  useTogglePlaylistLinkMutation,
-  useTracksQuery,
-} from "../lib/queries.js";
+import { useLinksQuery, usePlaylistsQuery, useRateTrackMutation, useTogglePlaylistLinkMutation } from "../lib/queries.js";
 import styles from "./PlayerScreen.module.css";
-
-const AUTO_PLAYLIST_IDS = new Set([
-  "auto-ultrafavorites",
-  "auto-great",
-  "auto-liked",
-  "auto-all-favorites",
-]);
 
 function pickRandomVisualizerStyle(): VisualizerStyle {
   return ALL_VISUALIZER_STYLES[Math.floor(Math.random() * ALL_VISUALIZER_STYLES.length)]!;
@@ -43,7 +28,6 @@ export function PlayerScreen() {
   const repeat = usePlayerStore((s) => s.repeat);
   const volume = usePlayerStore((s) => s.volume);
 
-  const { data: tracks = [] } = useTracksQuery();
   const { data: playlists = [] } = usePlaylistsQuery();
   const { data: links = [] } = useLinksQuery();
   const rateMutation = useRateTrackMutation();
@@ -66,16 +50,16 @@ export function PlayerScreen() {
   const effectiveStyle = visualizerRandomStyle ? randomStyle : visualizerStyle;
   const isFullWidthStyle = effectiveStyle === "bars" || effectiveStyle === "wave";
 
-  const carouselItems = buildPlaylistCarousel(playlists);
+  // Only user-created playlists show here — the auto (rating-based) lists are
+  // browsed from the Favorites screen instead, not toggled per-track.
+  const carouselItems: PlaylistCarouselItem[] = playlists.map((playlist) => ({
+    id: playlist.id,
+    name: playlist.name,
+    emoji: playlist.emoji,
+    isAuto: false,
+  }));
   const activeIds = new Set(
-    currentTrack
-      ? [
-          ...links.filter((l) => l.trackId === currentTrack.id).map((l) => l.playlistId),
-          ...carouselItems
-            .filter((item) => item.isAuto && getAutoPlaylistTracks(tracks, item.id as AutoPlaylistId).some((tr) => tr.id === currentTrack.id))
-            .map((item) => item.id),
-        ]
-      : [],
+    currentTrack ? links.filter((l) => l.trackId === currentTrack.id).map((l) => l.playlistId) : [],
   );
 
   if (!currentTrack) {
@@ -176,7 +160,6 @@ export function PlayerScreen() {
         items={carouselItems}
         activeIds={activeIds}
         onToggle={(item) => {
-          if (AUTO_PLAYLIST_IDS.has(item.id)) return;
           toggleLinkMutation.mutate({
             trackId: currentTrack.id,
             playlistId: item.id,

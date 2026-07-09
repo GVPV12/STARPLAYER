@@ -27,6 +27,7 @@ export interface SettingsStoreState extends Settings {
   setVisualizerColorMode: (mode: VisualizerColorMode) => void;
   setVisualizerRelaxedColor: (color: string) => void;
   setVisualizerEnergeticColor: (color: string) => void;
+  setShuffleIncludeLowRated: (value: boolean) => void;
   addCustomSkin: (skin: import("@starplayer/core").Skin) => void;
   /** Resets everything except language back to defaults — used by "delete all data". */
   resetForDataWipe: () => void;
@@ -53,6 +54,7 @@ export const useSettingsStore = create<SettingsStoreState>()(
       setVisualizerColorMode: (visualizerColorMode) => set({ visualizerColorMode }),
       setVisualizerRelaxedColor: (visualizerRelaxedColor) => set({ visualizerRelaxedColor }),
       setVisualizerEnergeticColor: (visualizerEnergeticColor) => set({ visualizerEnergeticColor }),
+      setShuffleIncludeLowRated: (shuffleIncludeLowRated) => set({ shuffleIncludeLowRated }),
       addCustomSkin: (skin) => set((state) => ({ customSkins: [...state.customSkins, skin] })),
       resetForDataWipe: () =>
         set((state) => ({

@@ -50,7 +50,7 @@ describe("filterShuffleable", () => {
 });
 
 describe("shuffleTracks", () => {
-  it("never includes 1-2 star tracks in the shuffled result", () => {
+  it("never includes 1-2 star tracks in the shuffled result by default", () => {
     const tracks = [makeTrack("a", 1), makeTrack("b", 2), makeTrack("c", 3), makeTrack("d", 4), makeTrack("e", 5)];
     const shuffled = shuffleTracks(tracks);
     expect(shuffled.every((t) => t.rating >= 3)).toBe(true);
@@ -59,7 +59,19 @@ describe("shuffleTracks", () => {
 
   it("is a pure permutation of the eligible pool under a deterministic rng", () => {
     const tracks = [makeTrack("a", 3), makeTrack("b", 4), makeTrack("c", 5)];
-    const shuffled = shuffleTracks(tracks, () => 0);
+    const shuffled = shuffleTracks(tracks, 3, () => 0);
+    expect(new Set(shuffled.map((t) => t.id))).toEqual(new Set(["a", "b", "c"]));
+  });
+
+  it("includes 1-2 star tracks when minRating is lowered", () => {
+    const tracks = [makeTrack("a", 1), makeTrack("b", 2), makeTrack("c", 3)];
+    const shuffled = shuffleTracks(tracks, 1);
+    expect(new Set(shuffled.map((t) => t.id))).toEqual(new Set(["a", "b", "c"]));
+  });
+
+  it("falls back to shuffling everything when no track meets minRating, instead of returning empty", () => {
+    const tracks = [makeTrack("a", 0), makeTrack("b", 0), makeTrack("c", 2)];
+    const shuffled = shuffleTracks(tracks);
     expect(new Set(shuffled.map((t) => t.id))).toEqual(new Set(["a", "b", "c"]));
   });
 });

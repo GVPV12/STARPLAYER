@@ -16,11 +16,13 @@
   scroll-behavior: smooth;
   scrollbar-width: none;
   /* overflow-y is hidden (only the x-axis scrolls), which also clips
-     anything extending past the top/bottom edge of the padding box — so an
-     active chip's glow (drop-shadow, up to var(--glow)'s 24px blur) needs
-     matching vertical padding here or it gets visibly cut off flat instead
-     of fading out. */
-  padding: 18px 2px;
+     anything extending past the top/bottom edge of the padding box. Bottom
+     just needs room for an active chip's glow (drop-shadow, up to
+     var(--glow)'s 24px blur); top needs more — the hover tooltip sits
+     `6px` above the chip and is itself ~18px tall, so it needs roughly
+     24px of clearance on top of the glow's own room or its top edge gets
+     cut off flat instead of showing the full label. */
+  padding: 34px 2px 18px;
 }
 .scroller::-webkit-scrollbar {
   display: none;

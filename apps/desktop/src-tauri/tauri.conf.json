@@ -22,7 +22,16 @@
       }
     ],
     "security": {
-      "csp": null,
+      "csp": {
+        "default-src": "'self'",
+        "script-src": "'self'",
+        "style-src": "'self' 'unsafe-inline'",
+        "img-src": "'self' data:",
+        "media-src": "'self' asset: http://asset.localhost https://asset.localhost",
+        "connect-src": "ipc: http://ipc.localhost https://ipc.localhost",
+        "font-src": "'self'",
+        "object-src": "'none'"
+      },
       "assetProtocol": {
         "enable": true,
         "scope": ["**"]

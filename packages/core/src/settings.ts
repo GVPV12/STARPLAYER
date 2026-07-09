@@ -20,6 +20,7 @@ export function createDefaultSettings(): Settings {
     volume: 80,
     muted: false,
     volumeBeforeMute: 80,
+    shuffleIncludeLowRated: false,
   };
 }
 

@@ -14,7 +14,7 @@
     "viewCovers": "Carátulas",
     "repeatOff": "No repetir",
     "repeatAll": "Repetir indefinidamente",
-    "repeatOne": "Repetir esta canción"
+    "repeatOne": "Repetir una vez"
   },
   "topbar": {
     "back": "Atrás",
@@ -68,6 +68,8 @@
     "visualizerColorModeDuo": "Dos colores",
     "visualizerRelaxedColor": "Color relajado",
     "visualizerEnergeticColor": "Color enérgico",
+    "playback": "Reproducción",
+    "shuffleIncludeLowRated": "Permitir canciones de 1-2 estrellas en modo aleatorio",
     "libraryPath": "Carpetas de biblioteca",
     "changeFolder": "Cambiar carpeta",
     "rescanLibrary": "Reescanear",

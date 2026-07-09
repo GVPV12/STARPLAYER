@@ -14,7 +14,7 @@
     "viewCovers": "Covers",
     "repeatOff": "Don't repeat",
     "repeatAll": "Repeat indefinitely",
-    "repeatOne": "Repeat this song"
+    "repeatOne": "Repeat once"
   },
   "topbar": {
     "back": "Back",
@@ -68,6 +68,8 @@
     "visualizerColorModeDuo": "Two colors",
     "visualizerRelaxedColor": "Relaxed color",
     "visualizerEnergeticColor": "Energetic color",
+    "playback": "Playback",
+    "shuffleIncludeLowRated": "Allow 1-2 star songs in shuffle",
     "libraryPath": "Library folders",
     "changeFolder": "Change folder",
     "rescanLibrary": "Re-scan",

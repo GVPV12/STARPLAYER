@@ -106,6 +106,11 @@ export function SettingsScreen({ onOpenCustomSkin, onDataWiped }: SettingsScreen
         isPlaying: false,
         currentTime: 0,
         duration: 0,
+        // Left at its previous value otherwise: with a freshly-wiped (all
+        // unrated) library, a stuck `shuffle: true` made every subsequent
+        // playQueue() filter down to an empty pool — nothing would play,
+        // shuffled or not, until the app was restarted.
+        shuffle: false,
       });
       useFavoritesModeStore.getState().setActive(false);
       await wipeMutation.mutateAsync();
@@ -263,6 +268,18 @@ export function SettingsScreen({ onOpenCustomSkin, onDataWiped }: SettingsScreen
             ) : null}
           </>
         ) : null}
+      </div>
+
+      <div className={styles.mappingBlock}>
+        <span className={styles.mappingTitle}>{t("settings.playback")}</span>
+        <label className={styles.row}>
+          <span>{t("settings.shuffleIncludeLowRated")}</span>
+          <input
+            type="checkbox"
+            checked={settings.shuffleIncludeLowRated}
+            onChange={(e) => settings.setShuffleIncludeLowRated(e.target.checked)}
+          />
+        </label>
       </div>
 
       <div className={styles.libraryBlock}>
