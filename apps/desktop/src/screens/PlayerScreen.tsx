@@ -12,6 +12,7 @@ import { useSettingsStore } from "../store/settingsStore.js";
 import { useAudioVisualizerData } from "../lib/useAudioVisualizerData.js";
 import { ConnectedProgressBar } from "../components/ConnectedProgressBar.js";
 import { useLinksQuery, usePlaylistsQuery, useRateTrackMutation, useTogglePlaylistLinkMutation } from "../lib/queries.js";
+import { coverArtSrc } from "../lib/coverArt.js";
 import styles from "./PlayerScreen.module.css";
 
 function pickRandomVisualizerStyle(): VisualizerStyle {
@@ -93,7 +94,7 @@ export function PlayerScreen() {
         ) : null}
         <div className={styles.coverFrame} data-skin={skin.id}>
           {currentTrack.coverArt ? (
-            <img className={styles.cover} src={currentTrack.coverArt} alt="" />
+            <img className={styles.cover} src={coverArtSrc(currentTrack.coverArt)} alt="" />
           ) : (
             <div className={styles.coverPlaceholder} data-skin={skin.id} aria-hidden="true">
               ♪

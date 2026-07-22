@@ -5,6 +5,7 @@ import { useSettingsStore } from "../store/settingsStore.js";
 import { usePlayerStore } from "../store/playerStore.js";
 import { useScanLibraryMutation, useTracksQuery } from "../lib/queries.js";
 import { pickLibraryFolder } from "../lib/scanner.js";
+import { coverArtSrc } from "../lib/coverArt.js";
 import { useFavoritesModeStore } from "../store/favoritesModeStore.js";
 import styles from "./LibraryScreen.module.css";
 
@@ -110,7 +111,7 @@ export function LibraryScreen({ onOpenTrack }: LibraryScreenProps) {
             >
               <span className={styles.rowCover} data-skin={skin.id}>
                 {track.coverArt ? (
-                  <img className={styles.rowCoverImg} src={track.coverArt} alt="" />
+                  <img className={styles.rowCoverImg} src={coverArtSrc(track.coverArt)} alt="" loading="lazy" />
                 ) : (
                   <span className={styles.rowCoverPlaceholder} aria-hidden="true">
                     ?
@@ -138,7 +139,7 @@ export function LibraryScreen({ onOpenTrack }: LibraryScreenProps) {
             >
               <span className={styles.tileSquare} data-skin={skin.id}>
                 {track.coverArt ? (
-                  <img className={styles.tileCover} src={track.coverArt} alt="" />
+                  <img className={styles.tileCover} src={coverArtSrc(track.coverArt)} alt="" loading="lazy" />
                 ) : (
                   <span className={styles.tileEmoji} aria-hidden="true">
                     ♪

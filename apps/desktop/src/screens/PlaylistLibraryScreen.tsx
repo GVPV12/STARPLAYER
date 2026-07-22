@@ -5,6 +5,7 @@ import { useSkin } from "@starplayer/ui";
 import { useLinksQuery, usePlaylistsQuery, useTracksQuery } from "../lib/queries.js";
 import { usePlayerStore } from "../store/playerStore.js";
 import { useFavoritesModeStore } from "../store/favoritesModeStore.js";
+import { coverArtSrc } from "../lib/coverArt.js";
 import styles from "./PlaylistLibraryScreen.module.css";
 
 export interface PlaylistLibraryScreenProps {
@@ -86,7 +87,7 @@ export function PlaylistLibraryScreen({ onOpenTrack, onOpenManager }: PlaylistLi
               >
                 <span className={styles.tileSquare} data-skin={skin.id}>
                   {cover?.coverArt ? (
-                    <img className={styles.tileCover} src={cover.coverArt} alt="" />
+                    <img className={styles.tileCover} src={coverArtSrc(cover.coverArt)} alt="" loading="lazy" />
                   ) : (
                     <span className={styles.tileEmoji} aria-hidden="true">
                       {playlist.emoji}

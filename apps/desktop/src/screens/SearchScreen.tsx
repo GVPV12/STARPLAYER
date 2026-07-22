@@ -5,6 +5,7 @@ import { PlayIcon, useSkin } from "@starplayer/ui";
 import { useTracksQuery } from "../lib/queries.js";
 import { usePlayerStore } from "../store/playerStore.js";
 import { useFavoritesModeStore } from "../store/favoritesModeStore.js";
+import { coverArtSrc } from "../lib/coverArt.js";
 import styles from "./SearchScreen.module.css";
 
 export interface SearchScreenProps {
@@ -58,7 +59,7 @@ export function SearchScreen({ onOpenTrack }: SearchScreenProps) {
             >
               <span className={styles.rowCover} data-skin={skin.id}>
                 {track.coverArt ? (
-                  <img className={styles.rowCoverImg} src={track.coverArt} alt="" />
+                  <img className={styles.rowCoverImg} src={coverArtSrc(track.coverArt)} alt="" loading="lazy" />
                 ) : (
                   <span className={styles.rowCoverPlaceholder} aria-hidden="true">
                     ?

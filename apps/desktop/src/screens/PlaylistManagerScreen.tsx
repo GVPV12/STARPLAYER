@@ -11,6 +11,7 @@ import {
 } from "../lib/queries.js";
 import { usePlayerStore } from "../store/playerStore.js";
 import { IconEmojiPicker } from "../components/IconEmojiPicker.js";
+import { coverArtSrc } from "../lib/coverArt.js";
 import styles from "./PlaylistManagerScreen.module.css";
 
 export interface PlaylistManagerScreenProps {
@@ -73,7 +74,7 @@ export function PlaylistManagerScreen({ onPlayPlaylist }: PlaylistManagerScreenP
               >
                 <span className={styles.tileSquare} data-skin={skin.id}>
                   {cover?.coverArt ? (
-                    <img className={styles.tileCover} src={cover.coverArt} alt="" />
+                    <img className={styles.tileCover} src={coverArtSrc(cover.coverArt)} alt="" loading="lazy" />
                   ) : (
                     <span className={styles.tileEmoji} aria-hidden="true">
                       {playlist.emoji}

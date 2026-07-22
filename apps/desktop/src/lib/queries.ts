@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Playlist, Rating, Track } from "@starplayer/core";
 import * as repo from "../db/repository.js";
-import { scanLibrary, type ScanProgress } from "./scanner.js";
+import { clearCoversCache, scanLibrary, type ScanProgress } from "./scanner.js";
 import { usePlayerStore } from "../store/playerStore.js";
 import { useScanStore } from "../store/scanStore.js";
 
@@ -82,10 +82,19 @@ export function useScanLibraryMutation() {
   return useMutation({
     mutationFn: async ({ path, onProgress }: { path: string; onProgress?: (p: ScanProgress) => void }) => {
       useScanStore.getState().start();
+      // Refetch the track list as scanning goes, throttled, so already-scanned
+      // songs show up progressively instead of the list staying empty until
+      // the entire (possibly large) library finishes.
+      let lastRefreshedAt = 0;
       try {
         await scanLibrary(path, (progress) => {
           useScanStore.getState().update(progress.scanned, progress.total);
           onProgress?.(progress);
+          const now = Date.now();
+          if (now - lastRefreshedAt > 500) {
+            lastRefreshedAt = now;
+            void queryClient.invalidateQueries({ queryKey: ["tracks"] });
+          }
         });
       } finally {
         useScanStore.getState().finish();
@@ -106,7 +115,10 @@ export function useForgetLibraryFolderMutation() {
 export function useWipeAllDataMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => repo.wipeAllData(),
+    mutationFn: async () => {
+      await repo.wipeAllData();
+      await clearCoversCache();
+    },
     onSuccess: () => {
       queryClient.setQueryData(["tracks"], []);
       queryClient.setQueryData(["playlists"], []);

@@ -1,6 +1,6 @@
-import { readDir, readFile } from "@tauri-apps/plugin-fs";
+import { exists, mkdir, readDir, readFile, remove, writeFile } from "@tauri-apps/plugin-fs";
 import { open } from "@tauri-apps/plugin-dialog";
-import { join } from "@tauri-apps/api/path";
+import { appDataDir, join } from "@tauri-apps/api/path";
 import { parseBuffer } from "music-metadata";
 import { pruneTracksNotInFolder, upsertTrack } from "../db/repository.js";
 
@@ -49,13 +49,74 @@ async function walk(dirPath: string): Promise<string[]> {
   return files;
 }
 
-function bytesToBase64(bytes: Uint8Array): string {
-  let binary = "";
-  const chunkSize = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunkSize) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+/**
+ * Extracted cover art used to be stored as a base64 data URL directly in the
+ * `tracks` table. For a real library (hundreds+ tracks) that meant every
+ * `SELECT * FROM tracks` pulled the whole library's embedded art into memory
+ * as text, and the UI had to render it all at once — the likely cause of the
+ * app becoming sluggish or crashing outright on a full library load. Cover
+ * art is now written to its own small file per track instead, so the DB and
+ * JS memory only ever hold a short file path, and the OS decodes/caches each
+ * image lazily as it's actually displayed.
+ */
+let coversDirPromise: Promise<string> | null = null;
+
+function getCoversDir(): Promise<string> {
+  if (!coversDirPromise) {
+    coversDirPromise = (async () => {
+      const dir = await join(await appDataDir(), "covers");
+      if (!(await exists(dir))) {
+        await mkdir(dir, { recursive: true });
+      }
+      return dir;
+    })();
   }
-  return btoa(binary);
+  return coversDirPromise;
+}
+
+const PICTURE_EXTENSIONS: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "image/gif": "gif",
+};
+
+/** Stable, non-cryptographic hash — just needs to give the same file name
+ *  across rescans of the same track so re-scanning overwrites its cover in
+ *  place instead of piling up orphaned files under a fresh id each time. */
+function hashPath(path: string): string {
+  let hash = 5381;
+  for (let i = 0; i < path.length; i += 1) {
+    hash = (hash * 33) ^ path.charCodeAt(i);
+  }
+  return (hash >>> 0).toString(36);
+}
+
+async function writeCoverArt(
+  filePath: string,
+  picture: { format: string; data: Uint8Array },
+): Promise<string | null> {
+  try {
+    const ext = PICTURE_EXTENSIONS[picture.format] ?? "jpg";
+    const coversDir = await getCoversDir();
+    const coverPath = await join(coversDir, `${hashPath(filePath)}.${ext}`);
+    await writeFile(coverPath, picture.data);
+    return coverPath;
+  } catch {
+    // A missing cover shouldn't fail the whole track scan.
+    return null;
+  }
+}
+
+/** Deletes every extracted cover file — used by Settings' "delete all data" so it's a real clean reset. */
+export async function clearCoversCache(): Promise<void> {
+  const dir = await getCoversDir();
+  try {
+    await remove(dir, { recursive: true });
+  } catch {
+    // Nothing to clean up.
+  }
+  coversDirPromise = null;
 }
 
 export interface ScanProgress {
@@ -88,7 +149,7 @@ export async function scanLibrary(
         title: common.title ?? fileName.replace(/\.[^./]+$/, ""),
         artist: common.artist ?? "Unknown Artist",
         album: common.album ?? "Unknown Album",
-        coverArt: picture ? `data:${picture.format};base64,${bytesToBase64(picture.data)}` : null,
+        coverArt: picture ? await writeCoverArt(filePath, picture) : null,
         duration: metadata.format.duration ?? 0,
         bpm: common.bpm ?? null,
         year: common.year ?? null,
