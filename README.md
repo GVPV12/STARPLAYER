@@ -1,6 +1,6 @@
 
-<img width="1242" height="720" alt="Proyecto nuevo" src="https://github.com/user-attachments/assets/4ad454da-81a5-4358-b35b-fa545a18f5ca" />
-<img width="1242" height="720" alt="Proyecto nuevo (1)" src="https://github.com/user-attachments/assets/c18b4dba-4774-46fd-83ff-4148bef02b13" />
+<img width="1242" height="720" alt="STARPLAYER desktop music player shown in three skins: a dark purple glass list view of songs, a retro orange pixel-art grid of album covers, and a light sky-blue player screen with clouds" src="https://github.com/user-attachments/assets/4ad454da-81a5-4358-b35b-fa545a18f5ca" />
+<img width="1242" height="720" alt="STARPLAYER now-playing screens in three skins: a magenta neon player with a dot-matrix audio visualizer, a translucent purple glass player with progress and volume sliders, and a black-and-white retro window with square buttons and a rainbow ring around the album art" src="https://github.com/user-attachments/assets/c18b4dba-4774-46fd-83ff-4148bef02b13" />
 
 # STARPLAYER
 
@@ -15,7 +15,7 @@ This first pass ships the **desktop app** (Tauri + React + Vite) and the
 **shared core/UI packages**. `apps/mobile` is an intentionally empty
 placeholder — see [`apps/mobile/README.md`](apps/mobile/README.md).
 
-<img width="1149" height="720" alt="Proyecto nuevo (4)" src="https://github.com/user-attachments/assets/9ae7c6ba-228f-4ff7-9feb-14cc37e9858e" />
+<img width="1149" height="720" alt="Two STARPLAYER skins side by side: the Monochrome Retro skin with a classic window frame, five filled rating stars and pixel-art cover, and the Gradient Glass skin with a magenta background, yellow cover art and a colorful bar equalizer" src="https://github.com/user-attachments/assets/9ae7c6ba-228f-4ff7-9feb-14cc37e9858e" />
 
 ## Project structure
 
