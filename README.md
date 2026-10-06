@@ -1,4 +1,10 @@
+
+<img width="1242" height="720" alt="Proyecto nuevo" src="https://github.com/user-attachments/assets/4ad454da-81a5-4358-b35b-fa545a18f5ca" />
+<img width="1242" height="720" alt="Proyecto nuevo (1)" src="https://github.com/user-attachments/assets/c18b4dba-4774-46fd-83ff-4148bef02b13" />
+
 # STARPLAYER
+
+Download here: https://github.com/GVPV12/STARPLAYER/releases/
 
 A cross-platform music player with a retro vaporwave OS-simulator identity —
 pixelated windows, chunky bitmap fonts, neon glows, and a skin engine that can
@@ -8,6 +14,8 @@ touching any component code.
 This first pass ships the **desktop app** (Tauri + React + Vite) and the
 **shared core/UI packages**. `apps/mobile` is an intentionally empty
 placeholder — see [`apps/mobile/README.md`](apps/mobile/README.md).
+
+<img width="1149" height="720" alt="Proyecto nuevo (4)" src="https://github.com/user-attachments/assets/9ae7c6ba-228f-4ff7-9feb-14cc37e9858e" />
 
 ## Project structure
 
