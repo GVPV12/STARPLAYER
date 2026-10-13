@@ -17,6 +17,12 @@ placeholder — see [`apps/mobile/README.md`](apps/mobile/README.md).
 
 <img width="1149" height="720" alt="Two STARPLAYER skins side by side: the Monochrome Retro skin with a classic window frame, five filled rating stars and pixel-art cover, and the Gradient Glass skin with a magenta background, yellow cover art and a colorful bar equalizer" src="https://github.com/user-attachments/assets/9ae7c6ba-228f-4ff7-9feb-14cc37e9858e" />
 
+## ⚠️ Windows Security Warning
+
+Windows Defender or other antivirus software may flag STARPLAYER as an unknown or potentially unsafe application. This does not necessarily mean the application contains a virus. STARPLAYER is an independent project that is not digitally signed with a Windows-trusted code-signing certificate. Obtaining and maintaining a code-signing certificate involves additional costs, which I chose not to incur for this small, non-commercial project.
+
+On Windows 11, **Smart App Control** may automatically block the application because it cannot verify its publisher or establish that the app is trustworthy. If you downloaded STARPLAYER from this official repository and still want to run it, you may need to adjust your Windows security settings. Please note that disabling Smart App Control reduces your system's protection against untrusted applications, and whether you can re-enable it afterward depends on your Windows version and updates. Only proceed if you trust the source and have verified the downloaded files.
+
 ## Project structure
 
 ```
